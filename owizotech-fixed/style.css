@@ -1,0 +1,539 @@
+/*
+Theme Name: OwizoTech
+Theme URI: https://owizotech.com
+Author: OwizoTech Team
+Author URI: https://owizotech.com
+Description: Premium WooCommerce theme for OwizoTech — professional electronics & tech store. Dark luxury aesthetic with bilingual support (AR/EN).
+Version: 1.0.0
+Requires at least: 6.0
+Tested up to: 6.5
+Requires PHP: 8.0
+WC requires at least: 8.0
+WC tested up to: 8.9
+License: GPL-2.0-or-later
+License URI: https://www.gnu.org/licenses/gpl-2.0.html
+Text Domain: owizotech
+Domain Path: /languages
+Tags: e-commerce, woocommerce, rtl-language-support, dark, two-columns, custom-menu, featured-images, translation-ready
+*/
+
+/* =========================================================
+   1. CSS CUSTOM PROPERTIES (DESIGN TOKENS)
+   ========================================================= */
+:root {
+  /* === Brand Colors === */
+  --clr-bg-primary:    #0A0C10;
+  --clr-bg-secondary:  #0F1218;
+  --clr-bg-card:       #13161D;
+  --clr-bg-elevated:   #1A1E28;
+  --clr-border:        rgba(255,255,255,0.07);
+  --clr-border-hover:  rgba(255,255,255,0.14);
+
+  --clr-accent:        #00C8FF;
+  --clr-accent-dark:   #0099CC;
+  --clr-accent-glow:   rgba(0,200,255,0.18);
+  --clr-accent-2:      #7B5CF6;
+  --clr-accent-2-glow: rgba(123,92,246,0.18);
+
+  --clr-gold:          #F5C842;
+  --clr-gold-dark:     #C8A020;
+
+  --clr-success:       #22C55E;
+  --clr-danger:        #EF4444;
+  --clr-warning:       #F59E0B;
+
+  --clr-text-primary:  #F0F2F7;
+  --clr-text-secondary:#8A90A0;
+  --clr-text-muted:    #555C70;
+
+  /* === Typography === */
+  --font-display:  'Syne', sans-serif;
+  --font-body:     'DM Sans', sans-serif;
+  --font-arabic:   'Cairo', sans-serif;
+  --font-mono:     'JetBrains Mono', monospace;
+
+  /* === Sizing === */
+  --container-xl:  1400px;
+  --container-lg:  1200px;
+  --container-md:  960px;
+
+  --radius-sm:     6px;
+  --radius-md:     12px;
+  --radius-lg:     20px;
+  --radius-xl:     32px;
+  --radius-full:   9999px;
+
+  /* === Spacing === */
+  --space-xs:   4px;
+  --space-sm:   8px;
+  --space-md:   16px;
+  --space-lg:   24px;
+  --space-xl:   40px;
+  --space-2xl:  64px;
+  --space-3xl:  96px;
+
+  /* === Shadows === */
+  --shadow-sm:    0 2px 8px rgba(0,0,0,0.4);
+  --shadow-md:    0 8px 32px rgba(0,0,0,0.5);
+  --shadow-lg:    0 20px 60px rgba(0,0,0,0.6);
+  --shadow-accent: 0 0 40px var(--clr-accent-glow), 0 8px 32px rgba(0,0,0,0.5);
+  --shadow-card:   0 4px 24px rgba(0,0,0,0.4);
+
+  /* === Transitions === */
+  --transition-fast:   150ms ease;
+  --transition-base:   250ms ease;
+  --transition-slow:   400ms cubic-bezier(0.25,0.46,0.45,0.94);
+  --transition-bounce: 500ms cubic-bezier(0.34,1.56,0.64,1);
+
+  /* === Z-index layers === */
+  --z-dropdown: 100;
+  --z-sticky:   200;
+  --z-modal:    500;
+  --z-toast:    600;
+}
+
+/* =========================================================
+   2. RESET & BASE
+   ========================================================= */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  line-height: 1.7;
+  color: var(--clr-text-primary);
+  background-color: var(--clr-bg-primary);
+  overflow-x: hidden;
+}
+
+/* RTL support */
+[dir="rtl"],
+.rtl,
+:lang(ar) {
+  font-family: var(--font-arabic);
+  direction: rtl;
+  text-align: right;
+}
+
+img, video { max-width: 100%; height: auto; display: block; }
+a { color: var(--clr-accent); text-decoration: none; transition: color var(--transition-fast); }
+a:hover { color: #fff; }
+button, input, select, textarea { font-family: inherit; }
+ul, ol { list-style: none; }
+
+/* =========================================================
+   3. TYPOGRAPHY SCALE
+   ========================================================= */
+h1,h2,h3,h4,h5,h6 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  line-height: 1.2;
+  color: var(--clr-text-primary);
+  letter-spacing: -0.02em;
+}
+
+:lang(ar) h1,:lang(ar) h2,:lang(ar) h3,
+:lang(ar) h4,:lang(ar) h5,:lang(ar) h6 {
+  font-family: var(--font-arabic);
+  letter-spacing: 0;
+}
+
+h1 { font-size: clamp(2rem, 5vw, 4rem); }
+h2 { font-size: clamp(1.6rem, 3.5vw, 2.8rem); }
+h3 { font-size: clamp(1.3rem, 2.5vw, 2rem); }
+h4 { font-size: 1.4rem; }
+h5 { font-size: 1.2rem; }
+h6 { font-size: 1rem; }
+
+p { color: var(--clr-text-secondary); max-width: 70ch; }
+
+.text-gradient {
+  background: linear-gradient(135deg, var(--clr-accent) 0%, var(--clr-accent-2) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* =========================================================
+   4. LAYOUT UTILITIES
+   ========================================================= */
+.container {
+  width: 100%;
+  max-width: var(--container-xl);
+  margin: 0 auto;
+  padding: 0 var(--space-xl);
+}
+.container--lg  { max-width: var(--container-lg); }
+.container--md  { max-width: var(--container-md); }
+
+.section { padding: var(--space-3xl) 0; }
+.section--sm { padding: var(--space-2xl) 0; }
+
+.grid { display: grid; gap: var(--space-lg); }
+.grid-2 { grid-template-columns: repeat(2,1fr); }
+.grid-3 { grid-template-columns: repeat(3,1fr); }
+.grid-4 { grid-template-columns: repeat(4,1fr); }
+.grid-auto { grid-template-columns: repeat(auto-fill, minmax(260px,1fr)); }
+
+.flex { display: flex; }
+.flex-center { display: flex; align-items: center; justify-content: center; }
+.flex-between { display: flex; align-items: center; justify-content: space-between; }
+.flex-col { display: flex; flex-direction: column; }
+.gap-sm { gap: var(--space-sm); }
+.gap-md { gap: var(--space-md); }
+.gap-lg { gap: var(--space-lg); }
+
+/* =========================================================
+   5. COMPONENT: BUTTONS
+   ========================================================= */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-sm);
+  padding: 12px 28px;
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  font-weight: 600;
+  border-radius: var(--radius-full);
+  border: none;
+  cursor: pointer;
+  transition: all var(--transition-base);
+  white-space: nowrap;
+  letter-spacing: 0.01em;
+  position: relative;
+  overflow: hidden;
+}
+
+.btn::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(255,255,255,0);
+  transition: background var(--transition-fast);
+}
+.btn:hover::before { background: rgba(255,255,255,0.08); }
+
+.btn-primary {
+  background: linear-gradient(135deg, var(--clr-accent), var(--clr-accent-dark));
+  color: #000;
+  box-shadow: 0 4px 20px var(--clr-accent-glow);
+}
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px var(--clr-accent-glow);
+  color: #000;
+}
+
+.btn-secondary {
+  background: transparent;
+  color: var(--clr-text-primary);
+  border: 1px solid var(--clr-border-hover);
+}
+.btn-secondary:hover {
+  border-color: var(--clr-accent);
+  color: var(--clr-accent);
+  transform: translateY(-2px);
+}
+
+.btn-ghost {
+  background: rgba(255,255,255,0.04);
+  color: var(--clr-text-secondary);
+  border: 1px solid var(--clr-border);
+}
+.btn-ghost:hover {
+  background: rgba(255,255,255,0.08);
+  color: var(--clr-text-primary);
+}
+
+.btn-icon {
+  width: 44px; height: 44px;
+  padding: 0;
+  border-radius: var(--radius-md);
+}
+
+.btn-lg { padding: 16px 40px; font-size: 1.05rem; }
+.btn-sm { padding: 8px 20px; font-size: 0.875rem; }
+
+/* =========================================================
+   6. COMPONENT: CARDS
+   ========================================================= */
+.card {
+  background: var(--clr-bg-card);
+  border: 1px solid var(--clr-border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  transition: all var(--transition-slow);
+}
+.card:hover {
+  border-color: var(--clr-border-hover);
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-card);
+}
+
+/* =========================================================
+   7. COMPONENT: BADGES & LABELS
+   ========================================================= */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 12px;
+  border-radius: var(--radius-full);
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+.badge-accent   { background: var(--clr-accent-glow); color: var(--clr-accent); border: 1px solid rgba(0,200,255,0.3); }
+.badge-sale     { background: rgba(239,68,68,0.15); color: var(--clr-danger); border: 1px solid rgba(239,68,68,0.3); }
+.badge-new      { background: rgba(34,197,94,0.15); color: var(--clr-success); border: 1px solid rgba(34,197,94,0.3); }
+.badge-featured { background: rgba(245,200,66,0.15); color: var(--clr-gold); border: 1px solid rgba(245,200,66,0.3); }
+
+/* =========================================================
+   8. COMPONENT: FORMS
+   ========================================================= */
+.form-group { display: flex; flex-direction: column; gap: var(--space-xs); }
+
+label {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--clr-text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="number"],
+input[type="tel"],
+input[type="search"],
+select,
+textarea {
+  width: 100%;
+  padding: 12px 16px;
+  background: var(--clr-bg-elevated);
+  border: 1px solid var(--clr-border);
+  border-radius: var(--radius-md);
+  color: var(--clr-text-primary);
+  font-size: 0.95rem;
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+  outline: none;
+}
+input:focus, select:focus, textarea:focus {
+  border-color: var(--clr-accent);
+  box-shadow: 0 0 0 3px var(--clr-accent-glow);
+}
+input::placeholder, textarea::placeholder { color: var(--clr-text-muted); }
+
+/* =========================================================
+   9. DECORATIVE ELEMENTS
+   ========================================================= */
+.divider {
+  height: 1px;
+  background: var(--clr-border);
+  border: none;
+  margin: var(--space-xl) 0;
+}
+
+.noise-overlay::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0.4;
+}
+
+.glow-dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--clr-accent);
+  box-shadow: 0 0 10px var(--clr-accent), 0 0 20px var(--clr-accent);
+  display: inline-block;
+}
+
+/* Gradient mesh background */
+.mesh-bg {
+  position: relative;
+}
+.mesh-bg::before {
+  content: '';
+  position: absolute;
+  width: 600px; height: 600px;
+  background: radial-gradient(circle, var(--clr-accent-glow) 0%, transparent 70%);
+  top: -200px; right: -200px;
+  pointer-events: none;
+}
+.mesh-bg::after {
+  content: '';
+  position: absolute;
+  width: 400px; height: 400px;
+  background: radial-gradient(circle, var(--clr-accent-2-glow) 0%, transparent 70%);
+  bottom: -100px; left: -100px;
+  pointer-events: none;
+}
+
+/* =========================================================
+   10. SECTION HEADINGS
+   ========================================================= */
+.section-header { margin-bottom: var(--space-2xl); }
+.section-label {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-sm);
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--clr-accent);
+  margin-bottom: var(--space-md);
+}
+.section-label::before {
+  content: '';
+  width: 24px; height: 2px;
+  background: var(--clr-accent);
+  display: block;
+}
+.section-title { color: var(--clr-text-primary); }
+.section-subtitle { color: var(--clr-text-secondary); margin-top: var(--space-md); font-size: 1.1rem; }
+
+/* =========================================================
+   11. BREADCRUMBS
+   ========================================================= */
+.breadcrumbs {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--space-sm);
+  font-size: 0.875rem;
+  color: var(--clr-text-muted);
+  padding: var(--space-md) 0;
+}
+.breadcrumbs a { color: var(--clr-text-secondary); }
+.breadcrumbs a:hover { color: var(--clr-accent); }
+.breadcrumbs .sep { color: var(--clr-text-muted); }
+.breadcrumbs .current { color: var(--clr-text-primary); }
+
+/* =========================================================
+   12. PAGINATION
+   ========================================================= */
+.pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-sm);
+  margin-top: var(--space-2xl);
+}
+.pagination a, .pagination span {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px; height: 44px;
+  border-radius: var(--radius-md);
+  background: var(--clr-bg-card);
+  border: 1px solid var(--clr-border);
+  color: var(--clr-text-secondary);
+  font-weight: 600;
+  transition: all var(--transition-fast);
+}
+.pagination a:hover {
+  border-color: var(--clr-accent);
+  color: var(--clr-accent);
+}
+.pagination .current {
+  background: var(--clr-accent);
+  color: #000;
+  border-color: var(--clr-accent);
+}
+
+/* =========================================================
+   13. SCROLLBAR STYLING
+   ========================================================= */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: var(--clr-bg-primary); }
+::-webkit-scrollbar-thumb { background: var(--clr-bg-elevated); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--clr-accent-dark); }
+
+/* =========================================================
+   14. SELECTION
+   ========================================================= */
+::selection { background: var(--clr-accent-glow); color: var(--clr-accent); }
+
+/* =========================================================
+   15. RESPONSIVE
+   ========================================================= */
+@media (max-width: 1200px) {
+  .container { padding: 0 var(--space-lg); }
+  .grid-4 { grid-template-columns: repeat(3,1fr); }
+}
+@media (max-width: 768px) {
+  .grid-3, .grid-4 { grid-template-columns: repeat(2,1fr); }
+  .grid-2 { grid-template-columns: 1fr; }
+  .section { padding: var(--space-2xl) 0; }
+  /* Fix button overflow on mobile */
+  .btn { padding: 10px 20px; font-size: 0.9rem; white-space: normal; text-align: center; }
+  .btn-lg { padding: 12px 28px; font-size: 0.95rem; }
+}
+@media (max-width: 480px) {
+  .grid-3, .grid-4, .grid-2 { grid-template-columns: 1fr; }
+  .container { padding: 0 var(--space-md); }
+  /* Fix heading overflow on small screens */
+  h1 { font-size: clamp(1.6rem, 8vw, 2.5rem); word-break: break-word; }
+  h2 { font-size: clamp(1.3rem, 6vw, 2rem); }
+  h3 { font-size: clamp(1.1rem, 5vw, 1.6rem); }
+  /* Prevent horizontal overflow */
+  p { max-width: 100%; }
+}
+
+/* =========================================================
+   16. ANIMATIONS
+   ========================================================= */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 20px var(--clr-accent-glow); }
+  50%       { box-shadow: 0 0 40px var(--clr-accent-glow), 0 0 60px var(--clr-accent-glow); }
+}
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(-10px); }
+}
+@keyframes shimmer {
+  0%   { background-position: -200% center; }
+  100% { background-position:  200% center; }
+}
+@keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+
+.animate-fade-up  { animation: fadeInUp 0.6s var(--transition-slow) both; }
+.animate-fade-in  { animation: fadeIn 0.4s ease both; }
+.animate-float    { animation: float 4s ease-in-out infinite; }
+.animate-pulse-glow { animation: pulse-glow 2s ease-in-out infinite; }
+
+.delay-1 { animation-delay: 0.1s; }
+.delay-2 { animation-delay: 0.2s; }
+.delay-3 { animation-delay: 0.3s; }
+.delay-4 { animation-delay: 0.4s; }
+.delay-5 { animation-delay: 0.5s; }
+
+/* Loading skeleton */
+.skeleton {
+  background: linear-gradient(90deg, var(--clr-bg-card) 25%, var(--clr-bg-elevated) 50%, var(--clr-bg-card) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: var(--radius-md);
+}
